@@ -26,7 +26,10 @@ exports.addUserCount = (user) =>{
   userCount[user.user] = user
 }
 exports.updateUserCount = (id) =>{
-  userCount[id].count ++;
+  userCount[id].totalCount ++;
+  userCount[id].consecutiveCount ++;
+  userCount[id].maxconsecutiveCount ++;
+        
 }
 
 exports.getUserCount = (id) => {

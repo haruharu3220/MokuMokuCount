@@ -51,7 +51,9 @@ app.message('もくもく'|| 'モクモク', async ({ message, say }) => {
     
     userCount = {
       user: message.user,
-      count: 1,
+      totalCount: 1,
+      consecutiveCount: 1,
+      maxconsecutiveCount: 1,
     };
     
     store.addUser(user);
@@ -70,8 +72,8 @@ app.message('もくもく'|| 'モクモク', async ({ message, say }) => {
         "type": "section",
         "text": {
           "type": "mrkdwn",
-          "text": `Hey there <${message.user}>\n${message.type}\n${message.channel}\n${message.text}\n${message.ts}\n${store.getUserCount(message.user)} `,
-          "text": `<@${message.user}>さんお疲れ様！\nモクモクした回数は${store.getUserCount(message.user)} 回だよ`,
+          // "text": `Hey there <${message.user}>\n${message.type}\n${message.channel}\n${message.text}\n${message.ts}\n${store.getUserCount(message.user)} `,
+          "text": `<@${message.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした通算回数は${store.getUserCount(message.user)} 回だよ`,
           
         },
         "accessory": {
