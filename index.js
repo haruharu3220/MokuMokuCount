@@ -2,6 +2,7 @@ const { App } = require('@slack/bolt');
 const store = require('./store');
 let userCount = {};
 var date = new Date() ;
+let sayFlag = true;
 
 const app = new App({
   signingSecret: process.env.SLACK_SIGNING_SECRET,
@@ -27,9 +28,7 @@ const app = new App({
 app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ message, context, say }) => {
 
   let dateTime = new Date(message.ts * 1000);
-
   let user = store.getUser(message.user);
-  
   
   if (!user) {
     user = {
@@ -48,11 +47,11 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
     let _consecutiveCount = 0;
     let _maxConsecutiveCount = store.getUser(message.user).maxConsecutiveCount;
     let diffDate = (dateTime-store.getUser(message.user).date)/ 86400000;
-    
+
     if(dateTime.getFullYear() == store.getUser(message.user).date.getFullYear() &&
        dateTime.getMonth() == store.getUser(message.user).date.getMonth() &&
        dateTime.getDate() == store.getUser(message.user).date.getDate()){
-
+        sayFlag = false;
     }else{
        _totalCount++;  
     }
@@ -75,9 +74,10 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
     };
     
     store.updateUser(user);
-    // say("B"+ diffDate.toString());
+    say("B"+ diffDate.toString());
   }
   
+  if(sayFlag){
   // イベントがトリガーされたチャンネルに say() でメッセージを送信します
   await say({
     blocks: [
@@ -85,7 +85,7 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
         "type": "section",
         "text": {
           "type": "mrkdwn",
-          "text": `${store.getUser(message.user).date}\n<@${message.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした日数は通算${store.getUser(message.user).totalCount} 日だよ:smile:\n今日で連続${store.getUser(message.user).consecutiveCount} 日モクモクしているよ:smile:\n連続日数の最高記録は${store.getUser(message.user).maxConsecutiveCount}日だよ！`,
+          "text": `<@${message.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした日数は通算${store.getUser(message.user).totalCount} 日だよ！\n今日で連続${store.getUser(message.user).consecutiveCount} 日モクモクしているよ！\n連続モクモク日数の最高記録は${store.getUser(message.user).maxConsecutiveCount}日だよ！`,
           
         },
         "accessory": {
@@ -100,7 +100,9 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
     ],
     text: `Hey there <@${context.user}>! :smile`
   });
+  }
 });
+
 
 (async () => {
   // アプリを起動します
