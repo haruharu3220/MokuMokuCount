@@ -48,11 +48,13 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
     if(diffDate > 2) {
       _consecutiveCount = 0;
     }else{
-      _consecutiveCount = store.getUser(message.user).consecutiveCount++;
+      _consecutiveCount = store.getUser(message.user).consecutiveCount;
+      _consecutiveCount++;
     }
     
     if(_consecutiveCount>store.getUser(message.user).maxConsecutiveCount){
-      _maxConsecutiveCount = store.getUser(message.user).maxConsecutiveCount++;
+      _maxConsecutiveCount = store.getUser(message.user).maxConsecutiveCount;
+      _maxConsecutiveCount++;
     }
     user = {
       user: message.user,
