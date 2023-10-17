@@ -12,7 +12,6 @@ exports.getMessages = () => {
 
 exports.addUser = (user) => {
   users[user.user] = user;
-  users[user.user].updateTime = 11111; 
 };
 
 exports.getUser = (id) => {
@@ -26,8 +25,7 @@ exports.addUserCount = (user) =>{
 exports.updateUserCount = (id) =>{
   userCount[id].totalCount ++;
   userCount[id].consecutiveCount ++;
-  userCount[id].maxconsecutiveCount ++;
-        
+  userCount[id].maxConsecutiveCount ++;
 }
 
 exports.getUserCount = (id) => {
