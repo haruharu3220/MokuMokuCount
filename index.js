@@ -42,6 +42,22 @@ app.event('app_mention', async ({ event, say }) => {
 // // "hello" を含むメッセージをリッスンします
 //https://api.slack.com/events/message
 app.message('hello', async ({ message, say }) => {
+  let user = store.getUser(message.user);
+  if (user) {
+    user = {
+      user: message.user,
+      count: 1,
+    };
+    store.addUser(user);
+  }else{
+    user = {
+      user: message.user,
+      count: store.getUser(message.user).count++,
+    };
+    store.addUser(user);
+    
+  }
+  
   // イベントがトリガーされたチャンネルに say() でメッセージを送信します
   await say({
     blocks: [
@@ -49,7 +65,7 @@ app.message('hello', async ({ message, say }) => {
         "type": "section",
         "text": {
           "type": "mrkdwn",
-          "text": `Hey there <@${message.user}>\n${message.type}\n${message.channel}\n${message.text}\n${message.ts}\n! `
+          "text": `Hey there <${message.user}>\n${message.type}\n${message.channel}\n${message.text}\n${message.ts}\n! `
         },
         "accessory": {
           "type": "button",
