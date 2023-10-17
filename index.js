@@ -42,19 +42,20 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
     
 
     store.addUser(user);
-    say("A");
+    // say("A");
   }else{
     let _totalCount = store.getUser(message.user).totalCount;
     let _consecutiveCount = 0;
     let _maxConsecutiveCount = store.getUser(message.user).maxConsecutiveCount;
     let diffDate = (dateTime-store.getUser(message.user).date)/ 86400000;
     
-    if(dateTime.getFullYear() == getUser(message.user).date.getFullYear() &&
-       dateTime.getMonth() == getUser(message.user).date.getMonth() &&
-       dateTime.getDate() == getUser(message.user).date.getDate()){
-      
+    if(dateTime.getFullYear() == store.getUser(message.user).date.getFullYear() &&
+       dateTime.getMonth() == store.getUser(message.user).date.getMonth() &&
+       dateTime.getDate() == store.getUser(message.user).date.getDate()){
+
+    }else{
+       _totalCount++;  
     }
-    _totalCount++;
     
     if(diffDate > 1) {
       _consecutiveCount = 0;
@@ -74,7 +75,7 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
     };
     
     store.updateUser(user);
-    say("B"+ diffDate.toString());
+    // say("B"+ diffDate.toString());
   }
   
   // イベントがトリガーされたチャンネルに say() でメッセージを送信します
@@ -84,7 +85,6 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
         "type": "section",
         "text": {
           "type": "mrkdwn",
-          // "text": `Hey there <${message.user}>\n${message.type}\n${message.channel}\n${message.text}\n${message.ts}\n${store.getUserCount(message.user)} `,
           "text": `${store.getUser(message.user).date}\n<@${message.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした日数は通算${store.getUser(message.user).totalCount} 日だよ:smile:\n今日で連続${store.getUser(message.user).consecutiveCount} 日モクモクしているよ:smile:\n連続日数の最高記録は${store.getUser(message.user).maxConsecutiveCount}日だよ！`,
           
         },
