@@ -41,6 +41,7 @@ app.event('app_mention', async ({ event, say }) => {
 
 // // "hello" を含むメッセージをリッスンします
 //https://api.slack.com/events/message
+const triggerWords = ['もくもく', 'モクモク', 'mokumoku'];
 app.message('もくもく', async ({ message, say }) => {
   let user = store.getUser(message.user);
   if (!user) {
@@ -73,7 +74,7 @@ app.message('もくもく', async ({ message, say }) => {
         "text": {
           "type": "mrkdwn",
           // "text": `Hey there <${message.user}>\n${message.type}\n${message.channel}\n${message.text}\n${message.ts}\n${store.getUserCount(message.user)} `,
-          "text": `<@${message.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした回数は通算${store.getUserCount(message.user).totalCount} 回だよ:smile:\n${message.ts.toLocaleDateString()}`,
+          "text": `<@${message.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした回数は通算${store.getUserCount(message.user).totalCount} 回だよ:smile:\n${message.ts}`,
           
         },
         "accessory": {
