@@ -22,18 +22,13 @@ exports.getUser = (id) => {
   return users[id];
 };
 
-
 exports.updateUser = (user) =>{
   users[user.user].date = user.date;
-  
   users[user.user].totalCount =user.totalCount;
   users[user.user].consecutiveCount =user.consecutiveCount;
   users[user.user].maxConsecutiveCount =user.maxConsecutiveCount;
 }
 
-exports.getUserCount = (id) => {
-  return userCount[id];
-};
 
 exports.setChannel = (channel) => {
   defaultChannel = channel;

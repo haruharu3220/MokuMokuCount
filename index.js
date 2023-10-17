@@ -44,28 +44,37 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
     store.addUser(user);
     say("A");
   }else{
-    let totalCount = store.getUser(message.user).totalCount++;
-    let consecutiveCount = 0;
-    let maxConsecutiveCount = store.getUser(message.user).maxConsecutiveCount;
+    let _totalCount = store.getUser(message.user).totalCount;
+    let _consecutiveCount = 0;
+    let _maxConsecutiveCount = store.getUser(message.user).maxConsecutiveCount;
     let diffDate = (dateTime-store.getUser(message.user).date)/ 86400000;
-    if(diffDate > 1) {
-      consecutiveCount = 0;
-    }else{
-      consecutiveCount = store.getUser(message.user).consecutiveCount++;
+    
+    if(dateTime.getFullYear() == getUser(message.user).date.getFullYear() &&
+       dateTime.getMonth() == getUser(message.user).date.getMonth() &&
+       dateTime.getDate() == getUser(message.user).date.getDate()){
+      
     }
-    if(consecutiveCount>store.getUser(message.user).maxConsecutiveCount){
-      maxConsecutiveCount = store.getUser(message.user).maxConsecutiveCount++;
+    _totalCount++;
+    
+    if(diffDate > 1) {
+      _consecutiveCount = 0;
+    }else{
+      _consecutiveCount = store.getUser(message.user).consecutiveCount++;
+    }
+    
+    if(_consecutiveCount>store.getUser(message.user).maxConsecutiveCount){
+      _maxConsecutiveCount = store.getUser(message.user).maxConsecutiveCount++;
     }
     user = {
       user: message.user,
       date: dateTime,
-      totalCount: totalCount,
-      consecutiveCount: consecutiveCount,
-      maxConsecutiveCount: maxConsecutiveCount,
+      totalCount: _totalCount,
+      consecutiveCount: _consecutiveCount,
+      maxConsecutiveCount: _maxConsecutiveCount,
     };
     
     store.updateUser(user);
-    say(diffDate);
+    say("B"+ diffDate.toString());
   }
   
   // イベントがトリガーされたチャンネルに say() でメッセージを送信します
