@@ -10,25 +10,6 @@ const app = new App({
 });
 
 
-app.event('app_mention', async ({ event, say }) => {
-  // Look up the user from DB
-  let user = store.getUser(event.user);
-  // if (user) {
-    user = {
-      user: event.user,
-      channel: event.channel,
-      // count: 1
-    };
-    store.addUser(user);
-    await say(`Hello world, and welcome <@${event.user}><${event.ts}><${event.text}>`);
-  // } else {
-  //   await say('Hi again!');
-  // }
-});
-
-
-
-
 // const { App } = require('@slack/bolt');
 
 // const app = new App({
@@ -43,7 +24,6 @@ app.event('app_mention', async ({ event, say }) => {
 
 // // "hello" を含むメッセージをリッスンします
 //https://api.slack.com/events/message
-const triggerWords = ['もくもく', 'モクモク', 'mokumoku'];
 app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ message, context, say }) => {
   let user = store.getUser(message.user);
   if (!user) {
@@ -56,10 +36,7 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
     };
     
 
-    
     store.addUser(user);
-    
-    
     // say("A");
   }else{
     store.updateUser(message);
@@ -91,60 +68,9 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
   });
 });
 
-// app.action('button_click', async ({ body, ack, say }) => {
-//   // アクションのリクエストを確認
-//   await ack();
-//   await say(`<@${body.user.id}> clicked the button`);
-// });
-
-// (async () => {
-//   // アプリを起動します
-//   await app.start();
-
-//   console.log('⚡️ Bolt app is running!');
-// })();
-
-
-
-
-// const { App } = require('@slack/bolt');
-
-// const app = new App({
-//   signingSecret: process.env.SLACK_SIGNING_SECRET,
-//   token: process.env.SLACK_BOT_TOKEN,
-//   socketMode: true,
-//   appToken: process.env.SLACK_APP_TOKEN,
-//   // ソケットモードではポートをリッスンしませんが、アプリを OAuth フローに対応させる場合、
-//   // 何らかのポートをリッスンする必要があります
-//   port: process.env.PORT || 3000
-// });
-
-// // "hello" を含むメッセージをリッスンします
-// app.message('hello', async ({ message, say }) => {
-//   // イベントがトリガーされたチャンネルに say() でメッセージを送信します
-//   await say(`Hey there <@${message.user}>!`);
-// });
-
 (async () => {
   // アプリを起動します
   await app.start();
-
   console.log('⚡️ Bolt app is running!');
 })();
 
-
-
-// const { App } = require('@slack/bolt');
-
-// // ボットトークンとソケットモードハンドラーを使ってアプリを初期化します
-// const app = new App({
-//   token: process.env.SLACK_BOT_TOKEN,
-//   signingSecret: process.env.SLACK_SIGNING_SECRET
-// });
-
-// (async () => {
-//   // アプリを起動します
-//   await app.start(process.env.PORT || 3000);
-
-//   console.log('⚡️ Bolt app is running!');
-// })();
