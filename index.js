@@ -17,8 +17,7 @@ app.event('app_mention', async ({ event, say }) => {
       // count: 1
     };
     store.addUser(user);
-
-    await say(`Hello world, and welcome <@${event.user}><${event.type}>`);
+    await say(`Hello world, and welcome <@${event.user}><${event.channel}>`);
   // } else {
   //   await say('Hi again!');
   // }
