@@ -57,10 +57,10 @@ app.message('hello', async ({ message, say }) => {
     store.addUser(user);
     store.addUserCount(userCount);
     
-    say("A");
+    // say("A");
   }else{
     store.updateUserCount(message.user);
-    say("B");
+    // say("B");
   }
   
   // イベントがトリガーされたチャンネルに say() でメッセージを送信します
@@ -70,7 +70,9 @@ app.message('hello', async ({ message, say }) => {
         "type": "section",
         "text": {
           "type": "mrkdwn",
-          "text": `Hey there <${message.user}>\n${message.type}\n${message.channel}\n${message.text}\n${message.ts}\n${store.getUserCount()} `
+          "text": `Hey there <${message.user}>\n${message.type}\n${message.channel}\n${message.text}\n${message.ts}\n${store.getUserCount(message.user)} `,
+          "text": `<@${message.user}>さんお疲れ様！\nモクモクした回数は${store.getUserCount(message.user)} 回だよ`,
+          
         },
         "accessory": {
           "type": "button",
