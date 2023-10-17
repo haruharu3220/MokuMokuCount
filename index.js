@@ -8,47 +8,21 @@ const app = new App({
 });
 
 
-// app.event('app_mention', async ({ event, say }) => {
-//   // Look up the user from DB
-//   let user = store.getUser(event.user);
-//   // if (user) {
-//     user = {
-//       user: event.user,
-//       channel: event.channel,
-//       // count: 1
-//     };
-//     store.addUser(user);
-//     await say(`Hello world, and welcome <@${event.user}><${event.ts}><${event.text}>`);
-//   // } else {
-//   //   await say('Hi again!');
-//   // }
-// });
-
-app.event('message.channels', async ({ message, say }) => {
+app.event('app_mention', async ({ event, say }) => {
   // Look up the user from DB
-  // let user = store.getUser(event.user);
-  // // if (user) {
-  //   user = {
-  //     user: event.user,
-  //     channel: event.channel,
-  //     // count: 1
-  //   };
-    // store.addUser(user);
-    await say(`メッセージを書きましたね `);
+  let user = store.getUser(event.user);
+  // if (user) {
+    user = {
+      user: event.user,
+      channel: event.channel,
+      // count: 1
+    };
+    store.addUser(user);
+    await say(`Hello world, and welcome <@${event.user}><${event.ts}><${event.text}>`);
   // } else {
   //   await say('Hi again!');
   // }
 });
-
-
-// Start your app
-(async () => {
-  await app.start(process.env.PORT || 3000);
-  console.log('⚡️ Bolt app is running!');
-})();
-
-
-
 
 
 
@@ -65,29 +39,24 @@ app.event('message.channels', async ({ message, say }) => {
 // });
 
 // // "hello" を含むメッセージをリッスンします
-// app.message('hello', async ({ message, say }) => {
-//   // イベントがトリガーされたチャンネルに say() でメッセージを送信します
-//   await say({
-//     blocks: [
-//       {
-//         "type": "section",
-//         "text": {
-//           "type": "mrkdwn",
-//           "text": `Hey there <@${message.user}>!`
-//         },
-//         "accessory": {
-//           "type": "button",
-//           "text": {
-//             "type": "plain_text",
-//             "text": "Click Me"
-//           },
-//           "action_id": "button_click"
-//         }
-//       }
-//     ],
-//     text: `Hey there <@${message.user}>!`
-//   });
-// });
+app.message('hello', async ({ message, say }) => {
+  
+  
+  // イベントがトリガーされたチャンネルに say() でメッセージを送信します
+  await say({
+    blocks: [
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": `Hey there <@${message.user}>!`
+        },
+          "action_id": "button_click"
+      }
+    ],
+    text: `Hey there <@${message.user}>!:smile `
+  });
+});
 
 // app.action('button_click', async ({ body, ack, say }) => {
 //   // アクションのリクエストを確認
@@ -123,12 +92,12 @@ app.event('message.channels', async ({ message, say }) => {
 //   await say(`Hey there <@${message.user}>!`);
 // });
 
-// (async () => {
-//   // アプリを起動します
-//   await app.start();
+(async () => {
+  // アプリを起動します
+  await app.start();
 
-//   console.log('⚡️ Bolt app is running!');
-// })();
+  console.log('⚡️ Bolt app is running!');
+})();
 
 
 
