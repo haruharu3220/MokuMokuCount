@@ -26,6 +26,7 @@ app.event('app_mention', async ({ event, say }) => {
 
 
 
+
 // const { App } = require('@slack/bolt');
 
 // const app = new App({
@@ -39,9 +40,8 @@ app.event('app_mention', async ({ event, say }) => {
 // });
 
 // // "hello" を含むメッセージをリッスンします
+//https://api.slack.com/events/message
 app.message('hello', async ({ message, say }) => {
-  
-  
   // イベントがトリガーされたチャンネルに say() でメッセージを送信します
   await say({
     blocks: [
@@ -49,12 +49,19 @@ app.message('hello', async ({ message, say }) => {
         "type": "section",
         "text": {
           "type": "mrkdwn",
-          "text": `Hey there <@${message.user}>!`
+          "text": `Hey there <@${message.user}>\n${message.type}\n${message.channel}\n${message.text}\n${message.ts}\n! `
         },
+        "accessory": {
+          "type": "button",
+          "text": {
+            "type": "plain_text",
+            "text": "Click Me"
+          },
           "action_id": "button_click"
+        }
       }
     ],
-    text: `Hey there <@${message.user}>!:smile `
+    text: `Hey there <@${message.user}>! :smile`
   });
 });
 
