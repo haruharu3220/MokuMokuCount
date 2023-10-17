@@ -60,10 +60,10 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
     store.addUser(user);
     store.addUserCount(userCount);
     
-    // say("A");
+    say("A");
   }else{
     store.updateUserCount(context.user);
-    // say("B");
+    say("B");
   }
   
   // イベントがトリガーされたチャンネルに say() でメッセージを送信します
@@ -74,7 +74,7 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
         "text": {
           "type": "mrkdwn",
           // "text": `Hey there <${message.user}>\n${message.type}\n${message.channel}\n${message.text}\n${message.ts}\n${store.getUserCount(message.user)} `,
-          "text": `<@${context.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした回数は通算${store.getUserCount(context.user).totalCount} 回だよ:smile:\n${context.ts}`,
+          "text": `<@${context.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした日数は通算${store.getUserCount(context.user).totalCount} 回だよ:smile:\n今日で連続${store.getUserCount(context.user).totalCount} `,
           
         },
         "accessory": {
