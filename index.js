@@ -7,7 +7,7 @@ const app = new App({
 });
 
 
-app.event('app_home_opened', async ({ event, say }) => {
+app.event('message.app_home', async ({ event, say }) => {
   // Look up the user from DB
   let user = store.getUser(event.user);
 
