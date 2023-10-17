@@ -10,18 +10,18 @@ const app = new App({
 app.event('app_mention', async ({ event, say }) => {
   // Look up the user from DB
   let user = store.getUser(event.user);
-
-  if (!user) {
+  // if (user) {
     user = {
       user: event.user,
-      channel: event.channel
+      channel: event.channel,
+      // count: 1
     };
     store.addUser(user);
 
-    await say(`Hello world, and welcome <@${user}>!<@${channel}>`);
-  } else {
-    await say('Hi again!');
-  }
+    await say(`Hello world, and welcome <@${event.user}><${event.type}>`);
+  // } else {
+  //   await say('Hi again!');
+  // }
 });
 
 
