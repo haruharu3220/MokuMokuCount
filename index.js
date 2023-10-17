@@ -42,16 +42,16 @@ app.event('app_mention', async ({ event, say }) => {
 // // "hello" を含むメッセージをリッスンします
 //https://api.slack.com/events/message
 const triggerWords = ['もくもく', 'モクモク', 'mokumoku'];
-app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ context, say }) => {
-  let user = store.getUser(context.user);
+app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ message,context, say }) => {
+  let user = store.getUser(message.user);
   if (!user) {
     user = {
-      user: context.user,
+      user: message.user,
       // count: 1,
     };
     
     userCount = {
-      user: context.user,
+      user: message.user,
       totalCount: 1,
       consecutiveCount: 1,
       maxconsecutiveCount: 1,
@@ -60,10 +60,10 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
     store.addUser(user);
     store.addUserCount(userCount);
     
-    say("A");
+    // say("A");
   }else{
     store.updateUserCount(context.user);
-    say("B");
+    // say("B");
   }
   
   // イベントがトリガーされたチャンネルに say() でメッセージを送信します
@@ -74,7 +74,7 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
         "text": {
           "type": "mrkdwn",
           // "text": `Hey there <${message.user}>\n${message.type}\n${message.channel}\n${message.text}\n${message.ts}\n${store.getUserCount(message.user)} `,
-          "text": `<@${context.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした日数は通算${store.getUserCount(context.user).totalCount} 回だよ:smile:\n今日で連続${store.getUserCount(context.user).totalCount} `,
+          "text": `${store.getUser(context.user).updateTime}\n<@${message.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした日数は通算${store.getUserCount(context.user).totalCount} 日だよ:smile:\n今日で連続${store.getUserCount(context.user).consecutiveCount}日モクモク達成中！\n最高連続記録は${store.getUserCount(context.user).maxconsecutiveCount}日だよ！！ `,
           
         },
         "accessory": {

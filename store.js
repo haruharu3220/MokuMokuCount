@@ -12,15 +12,13 @@ exports.getMessages = () => {
 
 exports.addUser = (user) => {
   users[user.user] = user;
+  users[user.user].updateTime = 11111; 
 };
 
 exports.getUser = (id) => {
   return users[id];
 };
 
-exports.setUser = (user) => {
-  users[user.user] = user;
-};
 
 exports.addUserCount = (user) =>{
   userCount[user.user] = user
