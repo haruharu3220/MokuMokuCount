@@ -23,11 +23,9 @@ exports.getUser = (id) => {
 };
 
 
-// exports.addUserCount = (user) =>{
-//   userCount[user.user] = user
-// }
 exports.updateUser = (message) =>{
   users[message.user].date = message.ts;
+  
   users[message.user].totalCount ++;
   users[message.user].consecutiveCount ++;
   users[message.user].maxConsecutiveCount ++;
