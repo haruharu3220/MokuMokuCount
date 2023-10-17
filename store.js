@@ -33,7 +33,7 @@ exports.updateUserCount = (id) =>{
 }
 
 exports.getUserCount = (id) => {
-  return userCount[id].count;
+  return userCount[id];
 };
 
 exports.setChannel = (channel) => {

@@ -73,7 +73,7 @@ app.message('もくもく'|| 'モクモク', async ({ message, say }) => {
         "text": {
           "type": "mrkdwn",
           // "text": `Hey there <${message.user}>\n${message.type}\n${message.channel}\n${message.text}\n${message.ts}\n${store.getUserCount(message.user)} `,
-          "text": `<@${message.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした通算回数は${store.getUserCount(message.user)} 回だよ`,
+          "text": `<@${message.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした回数は通算${store.getUserCount(message.user).totalCount} 回だよ:smile:\n`,
           
         },
         "accessory": {
