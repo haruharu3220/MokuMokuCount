@@ -11,18 +11,6 @@ const app = new App({
 });
 
 
-// const { App } = require('@slack/bolt');
-
-// const app = new App({
-//   token: process.env.SLACK_BOT_TOKEN,
-//   signingSecret: process.env.SLACK_SIGNING_SECRET,
-//   socketMode: true,
-//   appToken: process.env.SLACK_APP_TOKEN,
-//   // ソケットモードではポートをリッスンしませんが、アプリを OAuth フローに対応させる場合、
-//   // 何らかのポートをリッスンする必要があります
-//   port: process.env.PORT || 3000
-// });
-
 // // "hello" を含むメッセージをリッスンします
 //https://api.slack.com/events/message
 app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ message, context, say }) => {
@@ -39,7 +27,6 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
       maxConsecutiveCount: 1,
     };
     
-
     store.addUser(user);
     // say("A");
   }else{
@@ -51,12 +38,14 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
     if(dateTime.getFullYear() == store.getUser(message.user).date.getFullYear() &&
        dateTime.getMonth() == store.getUser(message.user).date.getMonth() &&
        dateTime.getDate() == store.getUser(message.user).date.getDate()){
-        sayFlag = false;
+      // デバッグのためコメントアウト
+      // sayFlag = false;
+      _totalCount++;  
     }else{
        _totalCount++;  
     }
     
-    if(diffDate > 1) {
+    if(diffDate > 2) {
       _consecutiveCount = 0;
     }else{
       _consecutiveCount = store.getUser(message.user).consecutiveCount++;
@@ -74,7 +63,7 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
     };
     
     store.updateUser(user);
-    say("B"+ diffDate.toString());
+    // say("B"+ diffDate.toString());
   }
   
   if(sayFlag){
@@ -86,7 +75,6 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
         "text": {
           "type": "mrkdwn",
           "text": `<@${message.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした日数は通算${store.getUser(message.user).totalCount} 日だよ！\n今日で連続${store.getUser(message.user).consecutiveCount} 日モクモクしているよ！\n連続モクモク日数の最高記録は${store.getUser(message.user).maxConsecutiveCount}日だよ！`,
-          
         },
         "accessory": {
           "type": "button",
