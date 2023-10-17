@@ -41,7 +41,7 @@ app.event('app_mention', async ({ event, say }) => {
 
 // // "hello" を含むメッセージをリッスンします
 //https://api.slack.com/events/message
-app.message('hello', async ({ message, say }) => {
+app.message('もくもく'|| 'モクモク', async ({ message, say }) => {
   let user = store.getUser(message.user);
   if (!user) {
     user = {
