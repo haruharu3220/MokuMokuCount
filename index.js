@@ -42,16 +42,16 @@ app.event('app_mention', async ({ event, say }) => {
 // // "hello" を含むメッセージをリッスンします
 //https://api.slack.com/events/message
 const triggerWords = ['もくもく', 'モクモク', 'mokumoku'];
-app.message('もくもく', async ({ message, say }) => {
-  let user = store.getUser(message.user);
+app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ context, say }) => {
+  let user = store.getUser(context.user);
   if (!user) {
     user = {
-      user: message.user,
+      user: context.user,
       // count: 1,
     };
     
     userCount = {
-      user: message.user,
+      user: context.user,
       totalCount: 1,
       consecutiveCount: 1,
       maxconsecutiveCount: 1,
@@ -62,7 +62,7 @@ app.message('もくもく', async ({ message, say }) => {
     
     // say("A");
   }else{
-    store.updateUserCount(message.user);
+    store.updateUserCount(context.user);
     // say("B");
   }
   
@@ -74,7 +74,7 @@ app.message('もくもく', async ({ message, say }) => {
         "text": {
           "type": "mrkdwn",
           // "text": `Hey there <${message.user}>\n${message.type}\n${message.channel}\n${message.text}\n${message.ts}\n${store.getUserCount(message.user)} `,
-          "text": `<@${message.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした回数は通算${store.getUserCount(message.user).totalCount} 回だよ:smile:\n${message.ts}`,
+          "text": `<@${context.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした回数は通算${store.getUserCount(context.user).totalCount} 回だよ:smile:\n${context.ts}`,
           
         },
         "accessory": {
@@ -87,7 +87,7 @@ app.message('もくもく', async ({ message, say }) => {
         }
       }
     ],
-    text: `Hey there <@${message.user}>! :smile`
+    text: `Hey there <@${context.user}>! :smile`
   });
 });
 
