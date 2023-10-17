@@ -11,6 +11,7 @@ exports.getMessages = () => {
 
 exports.addUser = (user) => {
   users[user.user] = user;
+  
 };
 
 exports.getUser = (id) => {
