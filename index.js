@@ -49,25 +49,20 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
   if (!user) {
     user = {
       user: message.user,
-      date: date.getTime(),
+      date: message.ts,
       totalCount: 1,
       consecutiveCount: 1,
       maxConsecutiveCount: 1,
     };
     
-    // userCount = {
-    //   user: message.user,
-    //   totalCount: 1,
-    //   consecutiveCount: 1,
-    //   maxConsecutiveCount: 1,
-    // };
+
     
     store.addUser(user);
-    // store.addUserCount(userCount);
+    
     
     // say("A");
   }else{
-    store.updateUser(message.user);
+    store.updateUser(message);
     // say("B");
   }
   
@@ -79,7 +74,7 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
         "text": {
           "type": "mrkdwn",
           // "text": `Hey there <${message.user}>\n${message.type}\n${message.channel}\n${message.text}\n${message.ts}\n${store.getUserCount(message.user)} `,
-          "text": `<@${message.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした回数は通算${store.getUserCount(message.user).totalCount} 日だよ:smile:\n今日で連続${store.getUserCount(message.user).consecutiveCount} 日モクモクしているよ:smile:\n連続日数の最高記録は${store.getUserCount(message.user).maxConsecutiveCount}日だよ！`,
+          "text": `<@${message.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした回数は通算${store.getUser(message.user).totalCount} 日だよ:smile:\n今日で連続${store.getUser(message.user).consecutiveCount} 日モクモクしているよ:smile:\n連続日数の最高記録は${store.getUser(message.user).maxConsecutiveCount}日だよ！`,
           
         },
         "accessory": {
