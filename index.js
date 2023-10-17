@@ -1,6 +1,6 @@
 const { App } = require('@slack/bolt');
 const store = require('./store');
-
+let userCount = {};
 const app = new App({
   signingSecret: process.env.SLACK_SIGNING_SECRET,
   token: process.env.SLACK_BOT_TOKEN,
@@ -43,19 +43,24 @@ app.event('app_mention', async ({ event, say }) => {
 //https://api.slack.com/events/message
 app.message('hello', async ({ message, say }) => {
   let user = store.getUser(message.user);
-  if (user) {
+  if (!user) {
     user = {
+      user: message.user,
+      // count: 1,
+    };
+    
+    userCount = {
       user: message.user,
       count: 1,
     };
-    store.addUser(user);
-  }else{
-    user = {
-      user: message.user,
-      count: store.getUser(message.user).count++,
-    };
-    store.addUser(user);
     
+    store.addUser(user);
+    store.addUserCount(userCount);
+    
+    say("A");
+  }else{
+    store.updateUserCount(message.user);
+    say("B");
   }
   
   // イベントがトリガーされたチャンネルに say() でメッセージを送信します
@@ -65,7 +70,7 @@ app.message('hello', async ({ message, say }) => {
         "type": "section",
         "text": {
           "type": "mrkdwn",
-          "text": `Hey there <${message.user}>\n${message.type}\n${message.channel}\n${message.text}\n${message.ts}\n! `
+          "text": `Hey there <${message.user}>\n${message.type}\n${message.channel}\n${message.text}\n${message.ts}\n${store.getUserCount()} `
         },
         "accessory": {
           "type": "button",
