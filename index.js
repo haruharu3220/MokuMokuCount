@@ -18,14 +18,26 @@ app.event('app_mention', async ({ event, say }) => {
       // count: 1
     };
     store.addUser(user);
-    await say(`Hello world, and welcome <@${event.user}><${event.ts}>`);
+    await say(`Hello world, and welcome <@${event.user}><${event.ts}><${event.text}>`);
   // } else {
   //   await say('Hi again!');
   // }
 });
 
-app.message('もくもく',async({message,say})=>{
-  await say(`もくもくっていったね`);
+app.event('message.channels', async ({ event, say }) => {
+  // Look up the user from DB
+  let user = store.getUser(event.user);
+  // if (user) {
+    user = {
+      user: event.user,
+      channel: event.channel,
+      // count: 1
+    };
+    store.addUser(user);
+    await say(`Hello world, and welcome <@${event.user}><${event.ts}><${event.text}>`);
+  // } else {
+  //   await say('Hi again!');
+  // }
 });
 
 
