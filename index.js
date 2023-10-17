@@ -1,6 +1,8 @@
 const { App } = require('@slack/bolt');
 const store = require('./store');
 let userCount = {};
+var date = new Date() ;
+
 const app = new App({
   signingSecret: process.env.SLACK_SIGNING_SECRET,
   token: process.env.SLACK_BOT_TOKEN,
@@ -47,22 +49,25 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
   if (!user) {
     user = {
       user: message.user,
-      // count: 1,
-    };
-    
-    userCount = {
-      user: message.user,
+      date: date.getTime(),
       totalCount: 1,
       consecutiveCount: 1,
       maxConsecutiveCount: 1,
     };
     
+    // userCount = {
+    //   user: message.user,
+    //   totalCount: 1,
+    //   consecutiveCount: 1,
+    //   maxConsecutiveCount: 1,
+    // };
+    
     store.addUser(user);
-    store.addUserCount(userCount);
+    // store.addUserCount(userCount);
     
     // say("A");
   }else{
-    store.updateUserCount(message.user);
+    store.updateUser(message.user);
     // say("B");
   }
   

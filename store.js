@@ -12,6 +12,10 @@ exports.getMessages = () => {
 
 exports.addUser = (user) => {
   users[user.user] = user;
+  users[user.user].date = user.date;
+  users[user.user].totalCount = user.totalCount;
+  users[user.user].consecutiveCount= user.consecutiveCount;
+  users[user.user].maxConsecutiveCount = user.maxConsecutiveCount;
 };
 
 exports.getUser = (id) => {
@@ -19,13 +23,14 @@ exports.getUser = (id) => {
 };
 
 
-exports.addUserCount = (user) =>{
-  userCount[user.user] = user
-}
-exports.updateUserCount = (id) =>{
-  userCount[id].totalCount ++;
-  userCount[id].consecutiveCount ++;
-  userCount[id].maxConsecutiveCount ++;
+// exports.addUserCount = (user) =>{
+//   userCount[user.user] = user
+// }
+exports.updateUser = (user) =>{
+  users[user.user].date = user.date;
+  users[user.user].totalCount ++;
+  users[user.user].consecutiveCount ++;
+  users[user.user].maxConsecutiveCount ++;
 }
 
 exports.getUserCount = (id) => {
