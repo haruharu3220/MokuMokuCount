@@ -26,7 +26,7 @@ const app = new App({
 //https://api.slack.com/events/message
 app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ message, context, say }) => {
 
-  let dateTime = new Date(message.ts * 1000).toLocaleDateString();
+  let dateTime = new Date(message.ts * 1000);
 
   let user = store.getUser(message.user);
   
@@ -44,16 +44,24 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
     store.addUser(user);
     // say("A");
   }else{
+    let totalCount = store.getUser(message.user).totalCount++;
     let consecutiveCount = 0;
+    let maxConsecutiveCount = 0;
     
-    if(dateTime-store.getUser(message.user).date>1) consecutiveCount =0;
-    
+    if((dateTime-store.getUser(message.user).date)/ 86400000 > 1) {
+      consecutiveCount = 0;
+    }else{
+      consecutiveCount = store.getUser(message.user).consecutiveCount++;
+    }
+    if(consecutiveCount>store.getUser(message.user).maxConsecutiveCount){
+      maxConsecutiveCount = store.getUser(message.user).maxConsecutiveCount++;
+    }
     user = {
       user: message.user,
       date: dateTime,
-      totalCount: 1,
-      consecutiveCount: 1,
-      maxConsecutiveCount: 1,
+      totalCount: totalCount,
+      consecutiveCount: consecutiveCount,
+      maxConsecutiveCount: maxConsecutiveCount,
     };
     
     store.updateUser(message);
