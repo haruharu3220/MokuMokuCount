@@ -14,7 +14,8 @@
   "author": "Slack Technologies, LLC",
   "license": "MIT",
   "dependencies": {
-    "@slack/bolt": "^3.9.0",
+    "@slack/bolt": "^3.14.0",
+    "fs": "0.0.1-security",
     "mysql": "^2.18.1",
     "sqlite3": "^5.1.6"
   }
