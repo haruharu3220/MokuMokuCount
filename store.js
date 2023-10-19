@@ -108,64 +108,29 @@ dbWrapper
 
 // Our server script will call these methods to connect to the db
 module.exports = {
-  
-  /**
-   * Get the options in the database
+    /**
+   * Get a user from the database
    *
-   * Return everything in the Choices table
-   * Throw an error in case of db connection issues
+   * Return user data based on id
    */
-  getOptions: async () => {
-    // We use a try catch block in case of db errors
+  getUser: async (id) => {
     try {
-      // return await db.all("SELECT * from Choices");
-      return await db.all("SELECT * from users");
-    } catch (dbError) {
-      // Database connection error
-      console.error(dbError);
-    }
-  },
-
-  /**
-   * ユーザー投票を処理する
-   *
-   * サーバーからユーザー投票文字列を受け取る
-   * ログエントリを追加する
-   * 選択されたオプションの検索と更新
-   * 更新された投票リストを返す
-   */
-  processVote: async vote => {
-    // Insert new Log table entry indicating the user choice and timestamp
-    try {
-      // Check the vote is valid
-      const option = await db.all(
-        // "SELECT * from Choices WHERE language = ?",
-        "SELECT * from Users WHERE user = ?",
-        vote
-      );
-      if (option.length > 0) {
-        // フロントエンドからのユーザーデータと現在時刻をSQLクエリにビルドする。
-        // await db.run("INSERT INTO Log (choice, time) VALUES (?, ?)", [
-        await db.run("INSERT INTO Log (Users, time) VALUES (?, ?)", [
-          vote,
-          new Date().toISOString()
-        ]);
-
-        // Update the number of times the choice has been picked by adding one to it
-        await db.run(
-          // "UPDATE Choices SET picks = picks + 1 WHERE language = ?",
-          "UPDATE Users SET picks = picks + 1 WHERE user = ?",
-          vote
-        );
-      }
-
-      // Return the choices so far - page will build these into a chart
-      return await db.all("SELECT * from Users");
+      return await new Promise((resolve, reject) => {
+        db.get("SELECT * FROM users WHERE user = ?", id, (err, row) => {
+          if (err) reject(err);
+          resolve(row);
+        });
+      });
     } catch (dbError) {
       console.error(dbError);
     }
   },
-  
+  /**
+   * Update a user in the database
+   *
+   * Update user data based on user object
+   */
+}  
   
   
 // db.serialize(function() {
