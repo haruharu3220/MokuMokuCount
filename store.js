@@ -83,7 +83,7 @@ dbWrapper
         // Add default choices to table
         await db.run(
           // "INSERT INTO Choices (language, picks) VALUES ('HTML', 0), ('JavaScript', 0), ('CSS', 0)"
-          "INSERT INTO Users (user, date, totalCount, consecutiveCount, maxConsecutiveCount ) VALUES ('', '', 0,0,0)"
+          "INSERT INTO Users (user, date, totalCount, consecutiveCount, maxConsecutiveCount ) VALUES ('test', 'test', 0,0,0)"
         );
 
         // Log can start empty - we'll insert a new record whenever the user chooses a poll option
@@ -130,42 +130,9 @@ module.exports = {
    *
    * Update user data based on user object
    */
-getUpdateUser: async (user) => {
-        const {
-            date,
-            totalCount,
-            consecutiveCount,
-            maxConsecutiveCount,
-            user,
-        } = user;
-
-        db.run("UPDATE users SET date = ?, totalCount = ?, consecutiveCount = ?, maxConsecutiveCount = ? WHERE user = ?",
-            date,
-            totalCount,
-            consecutiveCount,
-            maxConsecutiveCount,
-            user);
-    },
+  updateUser: (user) => {
+    db.run("UPDATE users SET date = ?, totalCount = ?, consecutiveCount = ?, maxConsecutiveCount = ? WHERE user = ?",
+      user.date, user.totalCount, user.consecutiveCount, user.maxConsecutiveCount, user.user);
+  },
+}
   
-}  
-  
-  
-// db.serialize(function() {
-//   db.run("CREATE TABLE users (user TEXT, date TEXT, totalCount INTEGER, consecutiveCount INTEGER, maxConsecutiveCount INTEGER)");
-
-//   let stmt = db.prepare("INSERT INTO users VALUES (?, ?, ?, ?, ?)");
-//   exports.addUser = (user) => {
-//     stmt.run(user.user, user.date, user.totalCount, user.consecutiveCount, user.maxConsecutiveCount);
-//   };
-
-//   exports.getUser = (id) => {
-//     db.get("SELECT * FROM users WHERE user = ?", id, (err, row) => {
-//       return row;
-//     });
-//   };
-
-//   exports.updateUser = (user) => {
-//     db.run("UPDATE users SET date = ?, totalCount = ?, consecutiveCount = ?, maxConsecutiveCount = ? WHERE user = ?",
-//       user.date, user.totalCount, user.consecutiveCount, user.maxConsecutiveCount, user.user);
-//   };
-// });
