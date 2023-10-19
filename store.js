@@ -116,7 +116,7 @@ module.exports = {
   getUser: async (id) => {
     try {
       return await new Promise((resolve, reject) => {
-        db.get("SELECT * FROM users WHERE user = ?", id, (err, row) => {
+        db.get("SELECT * FROM Users WHERE user = ?", id, (err, row) => {
           if (err) reject(err);
           resolve(row);
         });
@@ -130,6 +130,23 @@ module.exports = {
    *
    * Update user data based on user object
    */
+getUpdateUser: async (user) => {
+        const {
+            date,
+            totalCount,
+            consecutiveCount,
+            maxConsecutiveCount,
+            user,
+        } = user;
+
+        db.run("UPDATE users SET date = ?, totalCount = ?, consecutiveCount = ?, maxConsecutiveCount = ? WHERE user = ?",
+            date,
+            totalCount,
+            consecutiveCount,
+            maxConsecutiveCount,
+            user);
+    },
+  
 }  
   
   
