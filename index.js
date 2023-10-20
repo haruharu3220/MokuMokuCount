@@ -13,7 +13,7 @@ const app = new App({
 // // "hello" を含むメッセージをリッスンします
 //https://api.slack.com/events/message
 app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ message, context, say }) => {
-
+  say("start");
   let dateTime = new Date(message.ts * 1000);
   let user = store.getUser(message.user);
   
@@ -26,7 +26,7 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
       maxConsecutiveCount: 1,
     };
     
-    store.addUser(user);
+    // ★store.addUser(user);
     // say("A");
   }else{
     let _totalCount = store.getUser(message.user).totalCount;
