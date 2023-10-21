@@ -32,15 +32,15 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
   }else{
 
     let options = store.getUser(message.user);
-    let options2 = JSON.parse(options);
+    // let options2 = JSON.parse(options);
     // const options = [];
     const name = JSON.stringify(options.user);
     const hello = "HELLO";
     if(options){
       // say(name);
       say(options.user);
-      say(options2.user);
-      say(options2);
+      // say(options2.user);
+      // say(options2);
       say(options);
       // say(JSON.stringify(options.user));
       // say([options.user]);
