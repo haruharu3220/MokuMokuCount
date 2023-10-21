@@ -57,7 +57,7 @@ module.exports = {
    */
   addUser: async (user) => {
     await db.run("INSERT INTO Users (user, date, totalCount, consecutiveCount, maxConsecutiveCount) VALUES (?, ?, ?, ?, ?)",
-      user.user, user.date, user.totalCount, user.consecutiveCount, user.maxConsecutiveCount);
+      user.user, DATE('now'), user.totalCount, user.consecutiveCount, user.maxConsecutiveCount);
   },
   
   
