@@ -30,21 +30,19 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
     store.addUser(user);
     // say("A");
   }else{
+    async() =>{
+      let options = {};
+      options = await store.getUser(message.user);
 
-    let options = store.getUser(message.user);
-    // let options2 = JSON.parse(options);
-    // const options = [];
-    const name = JSON.stringify(options.user);
-    const hello = "HELLO";
-    if(options){
-      // say(name);
-      say(options.user);
-      // say(options2.user);
-      // say(options2);
-      say(options);
-      say(JSON.stringify(options.user));
-      say(JSON.stringify(options));
-      
+      const name = JSON.stringify(options.user);
+      const hello = "HELLO";
+      if(true){
+        say(name);
+        say(options.user);
+        say(options);
+        say(JSON.stringify(options.user));
+        say(JSON.stringify(options));
+
       // say([options.user]);
       // say(hello);
       say("a");
@@ -116,7 +114,8 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
     text: `Hey there <@${context.user}>! :smile`
   });
   }
-});
+  }
+  });
 
 
 (async () => {
