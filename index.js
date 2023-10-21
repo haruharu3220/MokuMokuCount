@@ -16,8 +16,10 @@ const app = new App({
 //https://api.slack.com/events/message
 app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ message, context, say }) => {
   let dateTime = new Date(message.ts * 1000);
-  let user = store.getUser(message.user);
-    say("start２");
+  // let user = store.getUser(message.user);
+  let user = false;
+  say("start２");
+  
   if (!user) {
     user = {
       user: message.user,
@@ -26,7 +28,7 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
       consecutiveCount: 1,
       maxConsecutiveCount: 1,
     };
-      say("start３");
+    say("start３");
     store.addUser(user);
     // say("A");
   }else{
@@ -88,7 +90,7 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
         "type": "section",
         "text": {
           "type": "mrkdwn",
-          "text": `<@${message.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした日数は通算${store.getUser(message.user).totalCount} 日だよ！\n今日で連続${store.getUser(message.user).consecutiveCount} 日モクモクしているよ！\n連続モクモク日数の最高記録は${store.getUser(message.user).maxConsecutiveCount}日だよ！`,
+          "text": `<${message.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした日数は通算${store.getUser(message.user).totalCount} 日だよ！\n今日で連続${store.getUser(message.user).consecutiveCount} 日モクモクしているよ！\n連続モクモク日数の最高記録は${store.getUser(message.user).maxConsecutiveCount}日だよ！`,
         },
         // "accessory": {
         //   "type": "button",
