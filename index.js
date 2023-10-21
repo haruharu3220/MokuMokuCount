@@ -38,13 +38,16 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
 //       if(true){
         // say(name);
         // say(user.user);
-        // say(user.date);
-        // say(dateTime.toString());
+        say(dateTime.toString());
+        say(dateTime.getFullYear().toString());
+        say(user.date);
+        // say(user.date.getFullYear().toString());
+        
         // say(user.totalCount.toString());
         // say(user.consecutiveCount.toString());
         // say(user.maxConsecutiveCount.toString());
-    say(dateTime.getFullYear().toString());
-    say(user.date.getFullYear())
+    // say(dateTime.getFullYear().toString());
+    // 
     
 //         // say(options);
 //         // say(JSON.stringify(options.user));
