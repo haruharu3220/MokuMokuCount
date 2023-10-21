@@ -62,7 +62,9 @@ module.exports = {
   
   
   getUser: async (id) => {
-      return await db.get("SELECT * FROM Users WHERE user = ?", id);
+      // return await db.get("SELECT * FROM Users WHERE user = ?", id);
+    
+    return await db.all("SELECT * FROM Users");
   },
   /**
    * Update a user in the database
