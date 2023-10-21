@@ -14,9 +14,8 @@ const app = new App({
 // // "hello" を含むメッセージをリッスンします
 //https://api.slack.com/events/message
 app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ message, context, say }) => {
-  let dateTime = new Date(message.ts * 1000,{
-    timezone:"Asia/Tokyo"
-  });
+  // let dateTime = new Date(message.ts * 1000);
+  let dateTime = new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000));
   let user = await store.getUser(message.user);
   // let user = true;
   
@@ -38,12 +37,14 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
       // const name = JSON.stringify(options.user);
 //       if(true){
         // say(name);
-        say(user.user);
-        say(user.date);
-        say(dateTime.toString());
-        say(user.totalCount.toString());
-        say(user.consecutiveCount.toString());
-        say(user.maxConsecutiveCount.toString());
+        // say(user.user);
+        // say(user.date);
+        // say(dateTime.toString());
+        // say(user.totalCount.toString());
+        // say(user.consecutiveCount.toString());
+        // say(user.maxConsecutiveCount.toString());
+    say(dateTime.getFullYear().toString());
+    say(user.date.getFullYear())
     
 //         // say(options);
 //         // say(JSON.stringify(options.user));
@@ -56,12 +57,10 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
 
     // let _totalCount = store.getUser(message.user).totalCount;
     let _totalCount =　await user.totalCount;
-    if(_totalCount){
-    }
     let _consecutiveCount = 0;
     let _maxConsecutiveCount = await user.consecutiveCount;
     let diffDate = await (dateTime-user.date)/ 86400000;
-
+say("D");
     if(dateTime.getFullYear() == user.date.getFullYear() &&
        dateTime.getMonth() == user.date.getMonth() &&
        dateTime.getDate() == user.date.getDate()){
