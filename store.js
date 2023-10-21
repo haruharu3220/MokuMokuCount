@@ -56,16 +56,18 @@ module.exports = {
    * Return user data based on id
    */
   addUser: async (user) => {
-    await db.run("INSERT INTO users (user, date, totalCount, consecutiveCount, maxConsecutiveCount) VALUES (?, ?, ?, ?, ?)",
+    await db.run("INSERT INTO Users (user, date, totalCount, consecutiveCount, maxConsecutiveCount) VALUES (?, ?, ?, ?, ?)",
       user.user, user.date, user.totalCount, user.consecutiveCount, user.maxConsecutiveCount);
   },
   
   
-  getUser:  (id) => {
-    const option = db.get("SELECT * FROM Users WHERE user = ?", id);
-    if(option.user != "U061FDPLLLB") return "hoge"+option.user;
+  getUser:  async (id) => {
+    // const option = db.all("SELECT * from Users");
+    const option = db.get("SELECT * from Users WHERE user = ?", id);
     
-    return "huge";
+    if(option.user != "U061FDPLLLB")  return await option;
+    
+    return await "huge";
   },
   /**
    * Update a user in the database

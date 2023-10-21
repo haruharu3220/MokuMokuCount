@@ -42,7 +42,9 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
       // say(options2.user);
       // say(options2);
       say(options);
-      // say(JSON.stringify(options.user));
+      say(JSON.stringify(options.user));
+      say(JSON.stringify(options));
+      
       // say([options.user]);
       // say(hello);
       say("a");
