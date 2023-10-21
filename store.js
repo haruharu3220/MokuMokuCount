@@ -55,6 +55,12 @@ module.exports = {
    *
    * Return user data based on id
    */
+  addUser: async (user) => {
+    db.run("INSERT INTO users (user, date, totalCount, consecutiveCount, maxConsecutiveCount) VALUES (?, ?, ?, ?, ?)",
+      user.user, user.date, user.totalCount, user.consecutiveCount, user.maxConsecutiveCount);
+  },
+  
+  
   getUser: async (id) => {
     try {
       return await new Promise((resolve, reject) => {
