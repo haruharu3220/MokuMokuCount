@@ -62,10 +62,10 @@ module.exports = {
   
   
   getUser:  (id) => {
-    const option = db.get("SELECT * FROM Users WHERE user = ?", "test");
+    const option = db.get("SELECT * FROM Users WHERE user = ?", "こん");
     if(option.langth == 0) return "hoge";
     
-    return JSON.stringify(option.user);
+    // return option;
   },
   /**
    * Update a user in the database
