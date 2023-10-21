@@ -33,7 +33,8 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
   }else{
     const options = store.getUser(message.user);
     if(options){
-      say("C");
+      say(JSON.stringify(options.user));
+      say("a");
     }
     
     // let _totalCount = store.getUser(message.user).totalCount;
