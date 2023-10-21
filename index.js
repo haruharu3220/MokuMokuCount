@@ -14,7 +14,9 @@ const app = new App({
 // // "hello" を含むメッセージをリッスンします
 //https://api.slack.com/events/message
 app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ message, context, say }) => {
-  let dateTime = new Date(message.ts * 1000);
+  let dateTime = new Date(message.ts * 1000,{
+    timezone:"Asia/Tokyo"
+  });
   let user = await store.getUser(message.user);
   // let user = true;
   
@@ -38,6 +40,7 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
         // say(name);
         say(user.user);
         say(user.date);
+        say(dateTime.toString());
         say(user.totalCount.toString());
         say(user.consecutiveCount.toString());
         say(user.maxConsecutiveCount.toString());
