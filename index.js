@@ -32,11 +32,17 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
     // say("A");
   }else{
     const options = store.getUser(message.user);
+    const name = JSON.stringify(options.user)
+    const hello = "HELLO";
     if(options){
-      say(JSON.stringify(options.user));
+      say(name);
+      say([options.user]);
+      say(hello);
       say("a");
     }
-    
+    if(name){
+      say("") 
+    }    
     // let _totalCount = store.getUser(message.user).totalCount;
     let _totalCount =　options.map((choice) => choice.totalCount);
     if(_totalCount){
