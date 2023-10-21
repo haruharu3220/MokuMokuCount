@@ -17,8 +17,7 @@ const app = new App({
 app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ message, context, say }) => {
   let dateTime = new Date(message.ts * 1000);
   // let user = store.getUser(message.user);
-  let user = false;
-  say("start２");
+  let user = true;
   
   if (!user) {
     user = {
@@ -32,8 +31,6 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
     store.addUser(user);
     // say("A");
   }else{
-        say("A");
-    
     const options = store.getUser(message.user);
     if(options){
     say("C");

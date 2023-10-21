@@ -56,7 +56,7 @@ module.exports = {
    * Return user data based on id
    */
   addUser: async (user) => {
-    db.run("INSERT INTO users (user, date, totalCount, consecutiveCount, maxConsecutiveCount) VALUES (?, ?, ?, ?, ?)",
+    await db.run("INSERT INTO users (user, date, totalCount, consecutiveCount, maxConsecutiveCount) VALUES (?, ?, ?, ?, ?)",
       user.user, user.date, user.totalCount, user.consecutiveCount, user.maxConsecutiveCount);
   },
   
@@ -78,8 +78,8 @@ module.exports = {
    *
    * Update user data based on user object
    */
-  updateUser: (user) => {
-    db.run("UPDATE users SET date = ?, totalCount = ?, consecutiveCount = ?, maxConsecutiveCount = ? WHERE user = ?",
+  updateUser:async (user) => {
+    await db.run("UPDATE users SET date = ?, totalCount = ?, consecutiveCount = ?, maxConsecutiveCount = ? WHERE user = ?",
       user.date, user.totalCount, user.consecutiveCount, user.maxConsecutiveCount, user.user);
   },
 }
