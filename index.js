@@ -40,7 +40,7 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
         // say(user.user);
         say(dateTime.toString());
         say(dateTime.getFullYear().toString());
-        say(user.date);
+        say(user.date.split('-')[0]);
         // say(user.date.getFullYear().toString());
         
         // say(user.totalCount.toString());
@@ -64,9 +64,9 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
     let _maxConsecutiveCount = await user.consecutiveCount;
     let diffDate = await (dateTime-user.date)/ 86400000;
 say("D");
-    if(dateTime.getFullYear() == user.date.getFullYear() &&
-       dateTime.getMonth() == user.date.getMonth() &&
-       dateTime.getDate() == user.date.getDate()){
+    if(dateTime.getFullYear() == user.date.split('-')[0] &&
+       dateTime.getMonth() == user.date.split('-')[1] &&
+       dateTime.getDate() == user.date.split('-')[2]){
       // デバッグのためコメントアウト
       // sayFlag = false;
       _totalCount++;  
