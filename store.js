@@ -61,11 +61,11 @@ module.exports = {
   },
   
   
-  getUser: async (id) => {
-    const option = await db.get("SELECT * FROM Users WHERE user = ?", 'U061FDPLLLB');
-    if(option.langth == 0) return null;
+  getUser:  (id) => {
+    const option = db.get("SELECT * FROM Users WHERE user = ?", "test");
+    if(option.langth == 0) return "hoge";
     
-    return option;
+    return JSON.stringify(option.user);
   },
   /**
    * Update a user in the database
