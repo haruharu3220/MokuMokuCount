@@ -26,7 +26,7 @@ dbWrapper
         // Database doesn't exist yet - create Choices and Log tables
         await db.run(
           // "CREATE TABLE Choices (id INTEGER PRIMARY KEY AUTOINCREMENT, language TEXT, picks INTEGER)"
-          "CREATE TABLE Users (user TEXT, date TEXT, totalCount INTEGER, consecutiveCount INTEGER, maxConsecutiveCount INTEGER)"
+          "CREATE TABLE Users (user TEXT, date datetime, totalCount INTEGER, consecutiveCount INTEGER, maxConsecutiveCount INTEGER)"
         );
 
         // Add default choices to table
@@ -57,7 +57,7 @@ module.exports = {
    */
   addUser: async (user) => {
     await db.run("INSERT INTO Users (user, date, totalCount, consecutiveCount, maxConsecutiveCount) VALUES (?, ?, ?, ?, ?)",
-      user.user, DATE('now'), user.totalCount, user.consecutiveCount, user.maxConsecutiveCount);
+      user.user, datetime('now', '+9 hours'), user.totalCount, user.consecutiveCount, user.maxConsecutiveCount);
   },
   
   
