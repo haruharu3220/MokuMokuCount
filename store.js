@@ -62,9 +62,10 @@ module.exports = {
   
   
   getUser:  async (id) => {  
-    const obj = await db.get("SELECT * from Users WHERE user = ?", id);
-    return JSON.stringify(obj);
-  }
+    // let obj = await db.get("SELECT * from Users WHERE user = ?", id);
+    // return JSON.stringify(obj);
+    return  await db.get("SELECT * from Users WHERE user = ?", id);
+  },
   /**
    * Update a user in the database
    *

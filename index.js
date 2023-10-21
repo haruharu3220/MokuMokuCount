@@ -15,8 +15,8 @@ const app = new App({
 //https://api.slack.com/events/message
 app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ message, context, say }) => {
   let dateTime = new Date(message.ts * 1000);
-  // let user = store.getUser(message.user);
-  let user = true;
+  let user = await store.getUser(message.user);
+  // let user = true;
   
   if (!user) {
     user = {
@@ -30,22 +30,27 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
     store.addUser(user);
     // say("A");
   }else{
-    async() =>{
+    // async() =>{
       let options = {};
-      options = await store.getUser(message.user);
-      const name = JSON.stringify(options.user);
+      // options = await store.getUser(message.user);
+      // const name = JSON.stringify(options.user);
       const hello = "HELLO";
-      if(true){
-        say(name);
-        say(options.user);
-        say(options);
-        say(JSON.stringify(options.user));
-        say(JSON.stringify(options));
+//       if(true){
+//         // say(name);
+        say(user.user);
+        say(user.date);
+        say(user.totalCount.toString());
+        say(user.consecutiveCount.toString());
+        say(user.maxConsecutiveCount.toString());
+    
+//         // say(options);
+//         // say(JSON.stringify(options.user));
+//         // say(JSON.stringify(options));
 
-      // say([options.user]);
-      // say(hello);
-      say("a");
-    }
+//       // say([options.user]);
+//       // say(hello);
+//       say("a");
+//     }
 
     // let _totalCount = store.getUser(message.user).totalCount;
     let _totalCount =　options.map((choice) => choice.totalCount);
@@ -113,7 +118,7 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
     text: `Hey there <@${context.user}>! :smile`
   });
   }
-  }
+  
   });
 
 
