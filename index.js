@@ -41,9 +41,7 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
       // say(hello);
       // say("a");
     }
-    if(name){
-      say("b"); 
-    }    
+
     // let _totalCount = store.getUser(message.user).totalCount;
     let _totalCount =　options.map((choice) => choice.totalCount);
     if(_totalCount){
