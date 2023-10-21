@@ -34,9 +34,8 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
       let options = {};
       // options = await store.getUser(message.user);
       // const name = JSON.stringify(options.user);
-      const hello = "HELLO";
 //       if(true){
-//         // say(name);
+        // say(name);
         say(user.user);
         say(user.date);
         say(user.totalCount.toString());
@@ -53,34 +52,32 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
 //     }
 
     // let _totalCount = store.getUser(message.user).totalCount;
-    let _totalCount =　options.map((choice) => choice.totalCount);
+    let _totalCount =　await user.totalCount;
     if(_totalCount){
-      say("D");
     }
-        say(store.getUser(message.user).totalCount.toStirng());
     let _consecutiveCount = 0;
-    let _maxConsecutiveCount = store.getUser(message.user).maxConsecutiveCount;
-    let diffDate = (dateTime-store.getUser(message.user).date)/ 86400000;
+    let _maxConsecutiveCount = await user.consecutiveCount;
+    let diffDate = await (dateTime-user.date)/ 86400000;
 
-    if(dateTime.getFullYear() == store.getUser(message.user).date.getFullYear() &&
-       dateTime.getMonth() == store.getUser(message.user).date.getMonth() &&
-       dateTime.getDate() == store.getUser(message.user).date.getDate()){
+    if(dateTime.getFullYear() == user.date.getFullYear() &&
+       dateTime.getMonth() == user.date.getMonth() &&
+       dateTime.getDate() == user.date.getDate()){
       // デバッグのためコメントアウト
       // sayFlag = false;
       _totalCount++;  
     }else{
        _totalCount++;  
     }
-    
+    say("E");
     if(diffDate > 2) {
       _consecutiveCount = 0;
     }else{
-      _consecutiveCount = store.getUser(message.user).consecutiveCount;
+      _consecutiveCount = user.consecutiveCount;
       _consecutiveCount++;
     }
-    
-    if(_consecutiveCount>store.getUser(message.user).maxConsecutiveCount){
-      _maxConsecutiveCount = store.getUser(message.user).maxConsecutiveCount;
+     say("F");
+    if(_consecutiveCount>user.maxConsecutiveCount){
+      _maxConsecutiveCount = user.maxConsecutiveCount;
       _maxConsecutiveCount++;
     }
     user = {
@@ -90,8 +87,9 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
       consecutiveCount: _consecutiveCount,
       maxConsecutiveCount: _maxConsecutiveCount,
     };
-    
+     say("G");
     store.updateUser(user);
+     say("H");
     // say("B"+ diffDate.toString());
   }
   
@@ -103,7 +101,7 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
         "type": "section",
         "text": {
           "type": "mrkdwn",
-          "text": `<${message.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした日数は通算${store.getUser(message.user).totalCount} 日だよ！\n今日で連続${store.getUser(message.user).consecutiveCount} 日モクモクしているよ！\n連続モクモク日数の最高記録は${store.getUser(message.user).maxConsecutiveCount}日だよ！`,
+          "text": `<${message.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした日数は通算${user.totalCount.toString()} 日だよ！\n今日で連続${user.consecutiveCount.toString()} 日モクモクしているよ！\n連続モクモク日数の最高記録は${user.maxConsecutiveCount.toString()}日だよ！`,
         },
         // "accessory": {
         //   "type": "button",
