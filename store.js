@@ -1,3 +1,4 @@
+// Utilities we need
 const fs = require("fs");
 
 // Initialize the database

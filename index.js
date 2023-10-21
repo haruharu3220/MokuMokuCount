@@ -28,7 +28,7 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
       maxConsecutiveCount: 1,
     };
     
-    // ★store.addUser(user);
+    store.updateUser(user);
     // say("A");
   }else{
     let _totalCount = store.getUser(message.user).totalCount;
