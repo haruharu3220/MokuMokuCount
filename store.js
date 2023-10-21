@@ -33,13 +33,6 @@ dbWrapper
           // "INSERT INTO Choices (language, picks) VALUES ('HTML', 0), ('JavaScript', 0), ('CSS', 0)"
           "INSERT INTO Users (user, date, totalCount, consecutiveCount, maxConsecutiveCount ) VALUES ('test', 'test', 0,0,0)"
         );
-
-        // Log can start empty - we'll insert a new record whenever the user chooses a poll option
-        await db.run(
-          // "CREATE TABLE Log (id INTEGER PRIMARY KEY AUTOINCREMENT, choice TEXT, time STRING)"
-          "CREATE TABLE Log (user TEXT, date TEXT, totalCount INTEGER, consecutiveCount INTEGER, maxConsecutiveCount INTEGER)"
-          
-        );
       } else {
         // We have a database already - write Choices records to log for info
         // console.log(await db.all("SELECT * from Choices"));
