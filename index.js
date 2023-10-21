@@ -33,7 +33,6 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
     async() =>{
       let options = {};
       options = await store.getUser(message.user);
-
       const name = JSON.stringify(options.user);
       const hello = "HELLO";
       if(true){
