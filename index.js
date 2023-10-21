@@ -3,7 +3,7 @@ const store = require('./store');
 let userCount = {};
 var date = new Date() ;
 let sayFlag = true;
-
+let continuousFlag = true;
 
 const app = new App({
   signingSecret: process.env.SLACK_SIGNING_SECRET,
@@ -62,8 +62,13 @@ app.message(/(もく|モク|moku|もくもく|モクモク|mokumoku)/, async ({ 
     let _totalCount =　await user.totalCount;
     let _consecutiveCount = 0;
     let _maxConsecutiveCount = await user.consecutiveCount;
-    let diffDate = await (dateTime-user.date)/ 86400000;
-say("D");
+    
+    if(dateTime.getFullYear() == user.date.split('-')[0] &&
+       dateTime.getMonth() == user.date.split('-')[1] &&
+       dateTime.getDate() - user.date.split('-')[2] >= 2){
+        let continuousFlag = false;
+    }
+    // let diffDate = await (dateTime-user.date)/ 86400000;
     if(dateTime.getFullYear() == user.date.split('-')[0] &&
        dateTime.getMonth() == user.date.split('-')[1] &&
        dateTime.getDate() == user.date.split('-')[2]){
@@ -73,14 +78,12 @@ say("D");
     }else{
        _totalCount++;  
     }
-    say("E");
-    if(diffDate > 2) {
+    if(!continuousFlag) {
       _consecutiveCount = 0;
     }else{
       _consecutiveCount = user.consecutiveCount;
       _consecutiveCount++;
     }
-     say("F");
     if(_consecutiveCount>user.maxConsecutiveCount){
       _maxConsecutiveCount = user.maxConsecutiveCount;
       _maxConsecutiveCount++;
@@ -92,9 +95,7 @@ say("D");
       consecutiveCount: _consecutiveCount,
       maxConsecutiveCount: _maxConsecutiveCount,
     };
-     say("G");
     store.updateUser(user);
-     say("H");
     // say("B"+ diffDate.toString());
   }
   
@@ -106,7 +107,7 @@ say("D");
         "type": "section",
         "text": {
           "type": "mrkdwn",
-          "text": `<${message.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした日数は通算${user.totalCount.toString()} 日だよ！\n今日で連続${user.consecutiveCount.toString()} 日モクモクしているよ！\n連続モクモク日数の最高記録は${user.maxConsecutiveCount.toString()}日だよ！`,
+          "text": `<@${message.user}>さん、お疲れ様！\nあなたがG'sに入学してからモクモクした日数は通算${user.totalCount.toString()} 日だよ！\n今日で連続${user.consecutiveCount.toString()} 日モクモクしているよ！\n連続モクモク日数の最高記録は${user.maxConsecutiveCount.toString()}日だよ！`,
         },
         // "accessory": {
         //   "type": "button",
