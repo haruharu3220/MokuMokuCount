@@ -2,7 +2,7 @@
 const fs = require("fs");
 
 // Initialize the database
-const dbFile = "./.data/choices.db";
+const dbFile = "./data/choices.db";
 const exists = fs.existsSync(dbFile);
 const sqlite3 = require("sqlite3").verbose();
 const dbWrapper = require("sqlite");
@@ -62,16 +62,7 @@ module.exports = {
   
   
   getUser: async (id) => {
-    try {
-      return await new Promise((resolve, reject) => {
-        db.get("SELECT * FROM Users WHERE user = ?", id, (err, row) => {
-          if (err) reject(err);
-          resolve(row);
-        });
-      });
-    } catch (dbError) {
-      console.error(dbError);
-    }
+      return await db.get("SELECT * FROM Users WHERE user = ?", id);
   },
   /**
    * Update a user in the database
